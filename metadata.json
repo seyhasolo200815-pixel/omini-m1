@@ -1,0 +1,6 @@
+{
+  "name": "OmniLearn - វេទិការៀនភាសាអនឡាញ",
+  "description": "វេទិកាសិក្សាភាសាអង់គ្លេស ជប៉ុន និងកូរ៉េ ជាមួយមេរៀនផ្ដោតគុណភាព និងងាយស្រួលយល់",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
