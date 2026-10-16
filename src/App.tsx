@@ -12,6 +12,7 @@ import { LevelZeroView } from './components/LevelZeroView';
 import { LevelBasicView } from './components/LevelBasicView';
 import { LevelElementaryView } from './components/LevelElementaryView';
 import { LevelIntermediateView } from './components/LevelIntermediateView';
+import { JapaneseLevelView } from './components/JapaneseLevelView';
 import { FeatureRow } from './components/FeatureRow';
 import { WhyChooseUs } from './components/WhyChooseUs';
 import { AuthModal } from './components/AuthModal';
@@ -20,9 +21,10 @@ import { Footer } from './components/Footer';
 import { COURSES_DATA, LessonUnit, LanguageCourse } from './data/lessonsData';
 
 export default function App() {
-  // Navigation view state: 'home' | 'levels' | 'level-zero' | 'level-basic' | 'level-elementary' | 'level-intermediate'
-  const [currentView, setCurrentView] = useState<'home' | 'levels' | 'level-zero' | 'level-basic' | 'level-elementary' | 'level-intermediate'>('home');
+  // Navigation view state: 'home' | 'levels' | 'level-zero' | 'level-basic' | 'level-elementary' | 'level-intermediate' | 'japanese'
+  const [currentView, setCurrentView] = useState<'home' | 'levels' | 'level-zero' | 'level-basic' | 'level-elementary' | 'level-intermediate' | 'japanese'>('home');
   const [selectedLanguage, setSelectedLanguage] = useState<'english' | 'japanese' | 'korean'>('english');
+  const [japaneseLevelId, setJapaneseLevelId] = useState<number>(1);
   const [authModalMode, setAuthModalMode] = useState<'login' | 'register' | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [userEmail, setUserEmail] = useState<string | null>(null);
@@ -103,7 +105,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#f8fafc] text-slate-800 font-khmer selection:bg-blue-100 selection:text-blue-900">
+    <div className="min-h-screen w-full max-w-[100vw] overflow-x-hidden flex flex-col bg-[#f8fafc] text-[#111827] font-medium font-khmer selection:bg-blue-100 selection:text-blue-900">
       
       {/* 1. Header with OmniLearn branding and navigation */}
       <Header
@@ -152,10 +154,16 @@ export default function App() {
           <LevelSelectionView
             onBack={handleBackToHome}
             languageName={getLanguageLabel()}
+            selectedLanguage={selectedLanguage}
             onSelectLevelZero={handleOpenLevelZero}
             onSelectLevelBasic={handleOpenLevelBasic}
             onSelectLevelElementary={handleOpenLevelElementary}
             onSelectLevelIntermediate={handleOpenLevelIntermediate}
+            onSelectJapaneseLevel={(levelId) => {
+              setJapaneseLevelId(levelId);
+              setCurrentView('japanese');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
           />
         )}
 
@@ -191,6 +199,16 @@ export default function App() {
           /* LEVEL INTERMEDIATE VIEW: 12 LESSONS FOR INTERMEDIATE B1.1   */
           /* ============================================================ */
           <LevelIntermediateView
+            onBack={handleBackToLevels}
+          />
+        )}
+
+        {currentView === 'japanese' && (
+          /* ============================================================ */
+          /* JAPANESE LEVEL VIEW: HIRAGANA, KATAKANA, AISATSU (ja-JP TTS) */
+          /* ============================================================ */
+          <JapaneseLevelView
+            initialLevelId={japaneseLevelId}
             onBack={handleBackToLevels}
           />
         )}

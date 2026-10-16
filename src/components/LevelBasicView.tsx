@@ -127,7 +127,7 @@ export const LevelBasicView: React.FC<LevelBasicViewProps> = ({ onBack }) => {
             return (
               <div
                 key={lesson.id}
-                className={`bg-white rounded-2xl border transition-all duration-200 overflow-hidden shadow-xs hover:shadow-md ${
+                className={`w-full lesson-card bg-white rounded-2xl border transition-all duration-200 overflow-hidden shadow-xs hover:shadow-md ${
                   isCompleted
                     ? 'border-sky-300 bg-sky-50/15'
                     : isExpanded

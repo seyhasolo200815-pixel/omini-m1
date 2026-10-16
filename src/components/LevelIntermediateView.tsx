@@ -129,7 +129,7 @@ export const LevelIntermediateView: React.FC<LevelIntermediateViewProps> = ({ on
             return (
               <div
                 key={lesson.id}
-                className={`bg-white rounded-2xl border transition-all duration-200 overflow-hidden shadow-xs hover:shadow-md ${
+                className={`w-full lesson-card bg-white rounded-2xl border transition-all duration-200 overflow-hidden shadow-xs hover:shadow-md ${
                   isCompleted
                     ? 'border-amber-300 bg-amber-50/15'
                     : isExpanded

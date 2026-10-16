@@ -17,7 +17,7 @@ import {
   X
 } from 'lucide-react';
 import { LEVEL_ZERO_LESSONS, LevelZeroLesson } from '../data/levelZeroLessons';
-import { speakTeacherLetter, speakNaturalEnglish } from '../utils/speechEngine';
+import { speakCleanLetter, speakNaturalEnglish } from '../utils/speechEngine';
 
 interface LevelZeroViewProps {
   onBack: () => void;
@@ -31,12 +31,11 @@ export const LevelZeroView: React.FC<LevelZeroViewProps> = ({ onBack }) => {
   const [selectedQuizOption, setSelectedQuizOption] = useState<number | null>(null);
   const [quizSubmitted, setQuizSubmitted] = useState<boolean>(false);
 
-  // Dedicated Letter + Khmer Sound Audio Teacher Function
-  // Format: [Letter name] + [Khmer sound], Slow, Warm, Human voice, NO Apple/Book/Cat
-  const handleSpeakLetter = (letter: string, khmerSound: string) => {
-    speakTeacherLetter(
+  // Dedicated Letter Audio Teacher Function
+  // Format: Pure English letter sound only, Rate = 0.65, NO "Capital A", NO Khmer sound
+  const handleSpeakLetter = (letter: string) => {
+    speakCleanLetter(
       letter,
-      khmerSound,
       () => setPlayingItem(letter),
       () => setPlayingItem(null)
     );
@@ -133,7 +132,7 @@ export const LevelZeroView: React.FC<LevelZeroViewProps> = ({ onBack }) => {
             return (
               <div
                 key={lesson.id}
-                className={`bg-white rounded-2xl border transition-all duration-200 overflow-hidden shadow-xs hover:shadow-md ${
+                className={`w-full lesson-card bg-white rounded-2xl border transition-all duration-200 overflow-hidden shadow-xs hover:shadow-md ${
                   isCompleted
                     ? 'border-emerald-200 bg-emerald-50/15'
                     : isExpanded
@@ -242,8 +241,8 @@ export const LevelZeroView: React.FC<LevelZeroViewProps> = ({ onBack }) => {
                                 <span className="text-xs font-extrabold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-md font-sans">
                                   ក្រុម {group.groupName}
                                 </span>
-                                <span className="text-[11px] text-slate-400 font-khmer">
-                                  សំឡេង៖ [ឈ្មោះអក្សរ] + [សំឡេងអានខ្មែរ]
+                                <span className="text-[11px] text-slate-500 font-khmer">
+                                  សំឡេងអក្សរអង់គ្លេសសុទ្ធ (English Only)
                                 </span>
                               </div>
 
@@ -253,13 +252,13 @@ export const LevelZeroView: React.FC<LevelZeroViewProps> = ({ onBack }) => {
                                   return (
                                     <button
                                       key={lIdx}
-                                      onClick={() => handleSpeakLetter(item.letter, item.khmerSound)}
+                                      onClick={() => handleSpeakLetter(item.letter)}
                                       className={`p-3.5 rounded-2xl border text-center transition-all cursor-pointer flex flex-col items-center justify-between gap-1.5 shadow-2xs group/btn ${
                                         isPlaying
                                           ? 'bg-amber-100 border-amber-400 ring-2 ring-amber-300 scale-105'
                                           : 'bg-slate-50 hover:bg-emerald-50/70 border-slate-200 hover:border-emerald-400'
                                       }`}
-                                      title={`ចុចស្តាប់ "${item.letter}, ${item.khmerSound}"`}
+                                      title={`ចុចស្តាប់អក្សរ "${item.letter}"`}
                                     >
                                       <div className="flex items-baseline gap-1">
                                         <span className="text-2xl font-black text-slate-900 font-sans group-hover/btn:text-emerald-700">
@@ -274,9 +273,9 @@ export const LevelZeroView: React.FC<LevelZeroViewProps> = ({ onBack }) => {
                                         {item.khmerSound}
                                       </div>
 
-                                      <div className="w-full pt-1.5 border-t border-slate-200/80 flex items-center justify-center gap-1.5 text-[11px] text-slate-500 font-khmer font-medium">
+                                      <div className="w-full pt-1.5 border-t border-slate-200/80 flex items-center justify-center gap-1.5 text-[11px] text-slate-600 font-sans font-bold">
                                         <Volume2 className={`w-3.5 h-3.5 ${isPlaying ? 'text-amber-700 animate-bounce' : 'text-emerald-600'}`} />
-                                        <span>{item.letter}, {item.khmerSound}</span>
+                                        <span>"{item.letter}"</span>
                                       </div>
                                     </button>
                                   );

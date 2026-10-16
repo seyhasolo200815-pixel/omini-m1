@@ -1,8 +1,85 @@
 @import "tailwindcss";
 
-@layer base {
+html, body {
+  max-width: 100vw;
+  width: 100%;
+  overflow-x: hidden;
+  touch-action: pan-y;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #111827;
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 500;
+  font-family: 'Kantumruy Pro', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  color: #111827;
+  letter-spacing: -0.01em;
+}
+
+p, span, div, li, a {
+  color: inherit;
+}
+
+/* Ensure all lesson cards and text boxes are 100% full width and never overflow horizontally */
+.lesson-card,
+.card-full-width,
+[data-card="full-width"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  border-radius: 16px !important;
+}
+
+/* Mobile Responsive: Hero Side-by-Side & 2-Column Language Cards */
+@media (max-width: 768px) {
+  .hero-section {
+    display: flex !important;
+    flex-direction: row !important; /* នៅទន្ទឹមគ្នាឆ្វេងស្តាំ */
+    align-items: center !important;
+    gap: 8px !important;
+  }
+  .hero-image {
+    width: 45% !important; /* បង្រួមរូបខាងស្តាំឱ្យសមនឹងអេក្រង់ */
+    height: auto !important;
+    flex-shrink: 0 !important;
+  }
+  .hero-text {
+    width: 55% !important; /* អត្ថបទខាងឆ្វេង */
+    flex-shrink: 0 !important;
+  }
+
+  /* កាតភាសាជា ២ ជួរ */
+  .language-cards-container {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+}
+
+/* Prevent accidental horizontal overflow on mobile viewports */
+@media screen and (max-width: 640px) {
   body {
-    font-family: 'Kantumruy Pro', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden !important;
+    position: relative;
+    width: 100vw;
+  }
+
+  .lesson-card,
+  .card-container {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
   }
 }
 
